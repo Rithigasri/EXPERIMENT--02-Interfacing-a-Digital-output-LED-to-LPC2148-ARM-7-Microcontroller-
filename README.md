@@ -1,9 +1,12 @@
-# EXPERIMENT--02-Interfacing-a-Digital-output-LED-to-LPC2148-ARM-7-Microcontroller-
-## Interfacing a Digital output (LED) to LPC2148 ARM 7 Microcontroller 
+# EXPERIMENT 02: INTERFACING A DIGITAL OUTPUT LED TO LPC2148 ARM 7 MICROCONTROLLER 
+## INTERFACING A DIGITAL OUTPUT (LED) TO LPC2148 ARM 7 MICROCONTROLLER
 
-## Aim: To Interface a Digital output (LED) to LPC2148 ARM 7 and write a blink code 
-## Components required: Proteus ISIS professional suite, Kiel μ vision 5 Development environment 
-## Theory 
+## AIM: 
+To Interface a Digital output (LED) to LPC2148 ARM 7 and write a blink code 
+## COMPONENTS REQUIRED: 
+* Proteus ISIS professional suite
+* Kiel μ vision 5 Development environment 
+## THEORY:
 The full form of an ARM is an advanced reduced instruction set computer (RISC) machine, and it is a 32-bit processor architecture expanded by ARM holdings. The applications of an ARM processor include several microcontrollers as well as processors. The architecture of an ARM processor was licensed by many corporations for designing ARM processor-based SoC products and CPUs. This allows the corporations to manufacture their products using ARM architecture. Likewise, all main semiconductor companies will make ARM-based SOCs such as Samsung, Atmel, TI etc.
 
 What is an ARM7 Processor?
@@ -33,7 +36,7 @@ The main features of LPC2148 include the following.
 ![image](https://user-images.githubusercontent.com/36288975/189275248-cf9f4001-be11-4773-ba86-517bec062fa5.png)
 
 
-## Procedure:
+## PROCEDURE:
 For creation of project on    Kiel μ vision 5 Development environment (LPC21 XX/48/38)
 1.	Click on the menu Project — New µVision Project creates a new project. Select an empty folder and enter the project name, for example Project1. It is good practice to use a separate folder for each project.
 2.	Next, the dialog Select Device for Target opens.
@@ -112,12 +115,41 @@ Figure -11 Hex file for simulation
 
 Step 9: Select the hex file from the Kiel program folder and import the program in to the microcontroller as shown in figure 11 ,  debug and if no errors in connections are found, run the VSM simulation to view the output.
 
+## KIEL PROGRAM FOR LED BLINKING ON AND OFF:
+```
+#include <lpc214x.h>
 
-## Kiel - Program for LED blinking ON  and  OFF (blinking)
+void delay_ms(unsigned int count)
+{
+  unsigned int j=0,i=0;
+  for(j=0;j<count;j++)
+  {
+    for(i=0;i<3000;i++);
+  }
+}
 
-## Output screen shots :
+int main() 
+{
+    PINSEL0 = 0x00000000;  //Configure the P1 Pins for GPIO;
+    IO0DIR = 0xffffffff; //Configure the P1 pins as OUTPUT;
+
+  while(1)
+    {
+       IO0SET = 0xffffffff;     // Make all the Port pins as high  
+         delay_ms(1000);
+
+       IO0CLR = 0xffffffff;     // Make all the Port pins as low  
+         delay_ms(1000);
+    }
+}
+```
+## OUTPUT:
+* BEFORE BLINKING:
+![output](./pic1.png)
+* AFTER BLINKING:
+![output](./pic2.png)
  
-## Result :
-Interfacing a digital output with ARM microcontroller is executed 
+## RESULT:
+Interfacing a digital output with ARM microcontroller is executed.
 
 
