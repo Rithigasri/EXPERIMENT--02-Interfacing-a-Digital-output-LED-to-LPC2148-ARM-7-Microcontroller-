@@ -119,29 +119,31 @@ Step 9: Select the hex file from the Kiel program folder and import the program 
 ```
 #include <lpc214x.h>
 
-void delay_ms(unsigned int count)
+// Input switches
+#define SW1	0x00010000				// P1.16
+
+// Output LEDs
+#define LED_D9	0x00000400 			// P0.10
+
+int main ()
 {
-  unsigned int j=0,i=0;
-  for(j=0;j<count;j++)
-  {
-    for(i=0;i<3000;i++);
-  }
+	IO0DIR = 0x003C3C00 ;			// Configure P0.10 to P0.13 and P0.18 to P0.21 as Output	
+	IO0SET = 0x003C3C00 ;			// SET (1) P0.10 to P0.13 and P0.18 to P0.21, LEDs OFF
+	while(1)
+	{
+		
+		if(!(IO1PIN & SW1))			// Check whether SW1 is pressed or not
+		{
+			IO0CLR = LED_D9 ;		// LED D9, ON if SW1 pressed
+		}
+		else
+		{
+			IO0SET = LED_D9 ;		// LED D9, OFF if SW1 released
+		}
+		
+	}
 }
 
-int main() 
-{
-    PINSEL0 = 0x00000000;  //Configure the P1 Pins for GPIO;
-    IO0DIR = 0xffffffff; //Configure the P1 pins as OUTPUT;
-
-  while(1)
-    {
-       IO0SET = 0xffffffff;     // Make all the Port pins as high  
-         delay_ms(1000);
-
-       IO0CLR = 0xffffffff;     // Make all the Port pins as low  
-         delay_ms(1000);
-    }
-}
 ```
 ## OUTPUT:
 * BEFORE BLINKING:
